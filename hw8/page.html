@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+
+      
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.js">
+</script>      
+      
+
+ <!--   Toggle -->  
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+      
+    
+<!-- angular -->
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js'></script>
+ <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-messages.min.js'></script>
+<script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.0-rc4/angular-material.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>    
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.0-rc4/angular-material.css'>
+      
+
+
+<!-- BootStrap -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script  src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+
+      <!-- High Stocks -->
+
+      
+<script src="https://code.highcharts.com/stock/highstock.js"></script>  <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>  
+      
+      
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.min.js"></script>
+
+<style>
+ @media (max-width: 640px)
+{
+    .bigRef
+    {
+        display: none;
+    }
+              .smallTitle{
+                           display:inline !important;
+              }
+              .bigTitle{
+                           display:none !important;
+              }
+}
+.smallTitle{
+              display:none;
+}
+.bigTitle{
+              display:inline;
+}
+      </style>
+
+      
+
+    </head>
+<body ng-app="MyApp" ng-controller="DemoCtrl">
+
+<div id="page">
+<!-- Angular -->
+ <div class="well well-sm" ng-controller="DemoCtrl as ctrl"  layout="column" ng-cloak="" style="margin-right:20%;margin-left:20%;">
+    <md-content class="md-padding">
+     <div class="row">
+       <div class="col-md-12"> <h3 style="text-align:center;">Stock Market Search</h3></div></div>
+            <form class="form-inline">
+                <div layout-gt-sm="row" class="col-md-4">
+                    <label for="Enter Stock Ticker Symbol">Enter Stock Ticker Symbol:</label></div>
+                 <div class="col-md-4">       <md-autocomplete 
+                            flex="" 
+                            md-item-text="item.Symbol"
+                            md-items="item in ctrl.querySearch(ctrl.searchText)" 
+                            md-search-text="ctrl.searchText" 
+                            md-selected-item="ctrl.selectedItem" 
+                            md-no-cache="ctrl.noCache" 
+                            md-input-minlength="1" 
+                            md-input-name="autocompleteField" 
+                            required=""
+                            md-delay="300">
+                            <md-item-template>
+                        <div md-highlight-text="ctrl.searchText">{{item.Symbol +" " +item.Name+" "+item.Exchange}}</div>
+                            </md-item-template>
+                    </md-autocomplete></div>
+                    
+                    
+                    
+                 <div class="col-md-4">
+                <button type="button" class="btn btn-primary active" id="inputsubmit" disabled><span class="glyphicon glyphicon-search"></span>Get Quote</button>
+                     
+                <button type="button" class="btn btn-default btn-sm" id="clearButton" disabled>
+                <span class="glyphicon glyphicon-refresh"></span> Clear
+                 </button>
+                </div>
+                <div id ="minimumchecker" style="clear:both"></div>  
+                    
+                
+            </form>
+    </md-content>
+ </div>
+<hr style="width:60%;">
+<!-- data store table -->
+<div id="uppannel" class="well well-sm slider1" ng-hide="myCheck1" style="margin-left:20%;margin-right:20%">
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Favorite List</b>
+          <div style="float:right">
+              <label style="vertical-align: middle"><span >Automatic Refresh</span></label>
+                <div class="checkbox checkbox-inline">
+                
+                <input type="checkbox" data-toggle="toggle"     id="toggler">
+                
+            </div>
+              <button type="button" class="btn btn-default btn-sm" id="refresh">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </button>
+            <button type="button"  class="btn btn-default btn-sm" id="hideUpper" ng-click="slider1()">
+                <span class="glyphicon glyphicon-chevron-right"></span> 
+            </button>
+  
+
+            </div>
+            <div style="clear:right"></div>
+        </div>
+        
+        <div class="panel-body">
+            <div class="row">
+            
+                
+                <span class="col-md-2 col-xs-12">Sort By</span>
+                        <span><select class="col-md-2 col-xs-12" id="Sorter" style="float:left">
+                            <option>Default</option>
+                            <option>Symbol</option>
+                            <option>Price</option>
+                            <option>Change</option>
+                            <option>Change Percent</option>
+                            <option>Volume</option>
+                            </select></span>
+                             
+                <span class = "col-md-2 col-xs-12">Order</span>
+                       <span> <select class="col-md-2 col-xs-12" id="SortingOrder" style="float:left">
+                            <option>Ascending</option>
+                            <option>Descending</option>
+                           </select> </span>
+               
+            
+         </div>
+        
+        <div class="table-responsive">
+            <table id="favoritesTable" class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Stock Price</th>
+                        <th>Change(Change Percent)</th>
+                        <th>Volume</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                 <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+ </div>
+
+<div id="bottompanel" ng-hide="myCheck2" class="well well-sm slider2" style="margin-left:20%;margin-right:20%;display:none">
+    <div class="panel panel-default">
+        <div class="panel-heading" align="center"> <span><b>Stock Details</b></span>
+                <button type="button" style="float:left" class="btn btn-default btn-sm" id="hidebottom" ng-click="slider2()">
+                    <span class="glyphicon glyphicon-chevron-left"></span> 
+                </button>
+        </div>
+        
+        <div class="panel-body">
+            <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#StockDetailsTab" ><span class="glyphicon glyphicon-dashboard active"></span> Current Stock
+                </a></li>
+                <li><a data-toggle="pill" href="#historicalchart">                   <span class="glyphicon glyphicon-stats"></span>Historical Charts</a></li>
+                <li><a data-toggle="pill" href="#newsfeeds"> <span class="glyphicon glyphicon-link"></span>News Feeds</a></li>
+            </ul>
+        
+            <hr>
+            
+     <div class="row">
+         
+<div class = "tab-content">
+              
+    <div id="StockDetailsTab" class="tab-pane fade in active col-sm-12">
+        
+        <div id="leftab"  class="col-sm-6">
+            <b>Stock Details</b>
+            <!-- left side tab -->
+            <!-- bookmark button and facebook -->
+            <div style="float:right">
+            <button onlclick="triggerFavorite()" id="starButton" type="button" class="btn btn-default btn-sm">
+                <span id="bookmark" class="glyphicon glyphicon-star-empty" style='height: 18px; width: 18px;'></span> 
+                </button> 
+            <button id="facebookButton" type="button" class="btn btn-default btn-sm" >
+                <img src="http://cs-server.usc.edu:45678/hw/hw8/images/facebook.png" style='height: 18px; width: 18px;'>
+                </button>
+            </div>
+            <div id="fb-root"></div>
+             
+             <div style="clear:right"></div>
+            <div class="table-responsive" id ="tablesection"></div>
+            
+
+      </div>
+
+    <div class="col-sm-6">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#priceChart">Price</a></li>
+            <li><a data-toggle="tab" href="#SMA">SMA</a></li>
+            <li><a data-toggle="tab" href="#EMA">EMA</a></li>
+            <li><a data-toggle="tab" href="#STOCH">STOCH</a></li>
+            <li><a data-toggle="tab" href="#RSI">RSI</a></li>
+            <li><a data-toggle="tab" href="#ADX">ADX</a></li>
+            <li><a data-toggle="tab" href="#CCI">CCI</a></li>
+            <li><a data-toggle="tab" href="#BBANDS">BBANDS</a></li>
+            <li><a data-toggle="tab" href="#MACD">MACD</a></li>
+        </ul>
+
+    <div class="tab-content">
+        <div id="priceChart" class="tab-pane fade in active commonIndicators">
+        </div>
+        <div id="SMA" class="tab-pane fade commonIndicators">
+            <br><br><br>
+        </div>
+        <div id="EMA" class="tab-pane fade commonIndicators">
+            <br><br><br>
+
+        </div>
+        <div id="STOCH" class="tab-pane fade commonIndicators">
+            <br><br><br>
+
+        </div>
+        <div id="RSI" class="tab-pane fade commonIndicators">
+            <br><br><br>
+        </div>  
+        <div id="ADX" class="tab-pane fade commonIndicators">
+            <br><br><br>
+        </div>
+        <div id="CCI" class="tab-pane fade commonIndicators" >
+            <br><br><br>
+
+        </div>
+        <div id="BBANDS" class="tab-pane fade commonIndicators">
+        </div>
+        <div id="MACD" class="tab-pane fade commonIndicators">
+        </div>
+       </div><!--Tabs-->
+      </div><!-- Right half--> 
+    </div>
+    
+    
+    
+    
+    <div id="historicalchart" class="tab-pane fade col-sm-12">
+    </div>
+     <div id="newsfeeds" class="tab-pane fade col-sm-12">
+     </div>  
+    </div>
+     </div><!-- row -->
+    </div> <!-- outer pannel body -->
+    </div> <!--panel-->
+        
+  </div><!--bottom panel-->
+</div>
+</body>
+<style>
+    body{
+        background-image: url("http://cs-server.usc.edu:45678/hw/hw8/images/background.png");
+        height:150%;
+        }      
+</style>  
+</html>
+<script type="text/javascript" src="script.js"></script>

@@ -1,0 +1,179 @@
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Homework 4</title>
+  <body>
+    <style>
+      #bodytext {
+        text-align: center;
+        margin-top: 90px;
+      }
+      
+      input[type=submit] {
+        background: rgb(241, 242, 242);
+          border-radius:3px;
+          border-color: lightgray;
+          border-width: thin;
+      }
+
+    </style>
+    <div id="bodytext">
+      <h3>Enter URL for Airlines List JSON File</h3>
+
+      <form method="post">
+        <input type="text" name="fileUrl" size=28px/>
+        <br>
+        <br>
+        <input type="submit" value="Submit Query" onclick="jsonparser()" />
+      </form>
+    </div>
+    <script>
+      function jsonparser() {
+         
+        var jsonURL = document.getElementsByName("fileUrl")[0].value; // Fetching the URL of file entered in the input text box
+          if(jsonURL=="")
+              {
+                  alert("Text Box is empty. Please enter a valid JSON file ");
+                  return;
+              }
+        //alert(jsonURL);
+        if (window.XMLHttpRequest) {
+          var xhttp = new XMLHttpRequest();
+        } else {
+          xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        
+//          function fileCheckRoutine(url)
+//          {
+//              var request = new XMLHttpRequest();
+//               request.open('GET', url, false);
+//           
+//                request.send();   
+//             
+//               
+//             
+//        return request.status===404;
+//          }
+//         if(fileCheckRoutine(jsonURL)) // If File does not exist
+//          {
+//               alert("ERROR 404 - File Not Found");
+//                  return;
+//    
+//          }
+        xhttp.open("GET", jsonURL, false);
+          xhttp.onreadystatechange = function() {
+     if(xhttp.readyState==4) {
+         
+     }
+ }
+          
+          xhttp.onerror= function(e) {
+        alert("Error fetching " + url);
+    };
+          try{  xhttp.send(null);}
+          catch(e)
+              {
+                  console.log(e);
+alert("File Not FOUND");
+              return;}
+      
+          xhttp.onerror= function(e) {
+        alert("Error fetching " + url);
+    };
+          console.log(xhttp.status);
+          
+          
+       
+        try{ // If there is any parsing issue, such as malformed json or empty
+            
+       
+          jsonObj = JSON.parse(xhttp.responseText);
+             } 
+          catch(e)
+              {
+                  alert("No such file exists");
+                  return;
+              }
+             if (!jsonObj.Mainline.Table.hasOwnProperty("Row")) // Specific check for AIRLINES data. All Airlines data are nested under this key
+                 // If this key isn't there means there is no data, so print an error
+              {
+                  alert("JSON file has no airline companies data ");
+                  return;
+              }
+          hWin = window.open("", "Assignment4", "height=800,width=1005"); // open a new window for output
+          generateHTML(jsonObj);  // Calling method to read json and display the data
+          hWin.document.write(html_text); // write the output to the screen
+
+          function generateHTML(jsonObj) {
+
+            root = jsonObj.documentElement;
+            html_text = "<html><head><title>US Airlines listings</title></head><body>";
+            html_text += "<table border='2'>";
+            captions = jsonObj.Mainline.Table.Header.Data; // All the headers are in data tag. Captions is a list of headers.
+            html_text += "<tbody>";
+            html_text += "<tr>";
+
+            for (i = 0; i < captions.length; i++) {
+
+              html_text += "<th>" + captions[i] + "</th>" // Writing captions on the table
+            }
+            html_text += "</tr>";
+          
+            
+            rows = jsonObj.Mainline.Table.Row; // All the airlines data is in the ROW tag. This will return a list of JS objects.
+
+            console.log(rows);
+
+            
+            for (i = 0; i < rows.length; i++) {
+              console.log("length of rows" + rows.length);
+              html_text += "<tr>";
+              ithObject = Object.keys(rows[i]); // Returns the list of all keys in the object.
+              console.log("ith object is" + ithObject);
+              for (key in ithObject) { // Iterate over the keys. Keys would be numbers
+                property = ithObject[key]; // get the key at the particular index
+                console.log("row[i]'s value corresponding to this key is : " + rows[i][property])
+                console.log("Key is" + key);
+                console.log("property is" + property);
+                console.log("property is" + ithObject[property]);
+                if (key == 5) { // key no 5 is airplane
+                  html_text += "<td><img src='" + rows[i][property] + "' height='139' width='305'></td>"; // Print the photo of the airplane
+                } // if
+                else if (key ==2) { // key no 2 is hubs. So get a list of hubs as an array.
+                  hubs = rows[i][property]; 
+                  values = Object.values(hubs); // Get all values as a list.
+                  hubList = values[0];
+
+                  console.log("type of  hubList are" + typeof(hubList));
+                  console.log("size of hubList" + (hubList.length));
+                  html_text += "<td>" + "<ul type='disc'>"
+                  for (j = 0; j < hubList.length; j++) { // iterate over the hublist.
+                    console.log("Hub is" + hubList[j]);
+                    if (j == 0)
+                      html_text += "<li><b>" + hubList[j] + "</b></li>" // First entry should be boldface rest all bullet points
+                    else
+                      html_text += "<li>" + hubList[j] + "</li>"
+                  } // for 
+
+                  html_text += "</ul></td>"
+
+                } // else if key ==2
+                else if (key == 4) { // these should be links.
+                  html_text += "<td>" + "<a href=" + rows[i][property] + ">" + rows[i][property] + "</a></td>";
+                } // else if 
+                else {
+
+                  html_text += "<td>" + rows[i][property] + "</td>";
+                } // else
+              } // for loop
+              html_text += "</tr>";
+
+            } 
+        } // inner function
+      } // outer function
+
+    </script>
+      <noscript/>
+  </body>
+
+
+</html>
