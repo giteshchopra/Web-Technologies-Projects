@@ -15,13 +15,11 @@
             </div>
             <input style="margin-top:0px; float:left;margin-left:195px;" type="submit" value="search" name="submit">
             <input style="float:left;margin-left:10px" type="button" value="clear" id="button" onclick="clearPage()">
-
             <br>
             <div style="clear:both;font-style: italic;"> *-Mandatory fields</div>
             <br> <br>
-
-
             <script>
+                
                 function submitted()
                 {
                     if(document.getElementById("input").value=="")
@@ -29,41 +27,41 @@
                         alert("No symbol entered. Please Enter a symbol");
                         return false;
                     }
-
                 }
-                function clearPage()
-                {
-                if(document.getElementById("input"))
-                 if(document.getElementById("input").value!="")
-                    document.getElementById("input").value="";
-                    
-                 if(document.getElementById("clickheretext"))
-                 if(document.getElementById("clickheretext").innerHTML!="")
-                  document.getElementById("clickheretext").innerHTML="";
-                    
-                  if(document.getElementById("wrapperImage"))
-                  if(document.getElementById("wrapperImage").innerHTML!="")
-                  document.getElementById("wrapperImage").innerHTML="";
                 
-                  if(document.getElementById("chart"))
-                  if(document.getElementById("chart").innerHTML!="")
-                  document.getElementById("chart").innerHTML="";
-                  if(document.getElementById("table"))
-                  if(document.getElementById("table").innerHTML!="")
-                  document.getElementById("table").innerHTML="";
+                function clearPage(){
+                    if(document.getElementById("input"))
+                        if(document.getElementById("input").value!="")
+                            document.getElementById("input").value="";
+                    
+                    if(document.getElementById("clickheretext"))
+                        if(document.getElementById("clickheretext").innerHTML!="")
+                            document.getElementById("clickheretext").innerHTML="";
+                    
+                    if(document.getElementById("wrapperImage"))
+                        if(document.getElementById("wrapperImage").innerHTML!="")
+                            document.getElementById("wrapperImage").innerHTML="";
+                
+                    if(document.getElementById("chart"))
+                        if(document.getElementById("chart").innerHTML!="")
+                            document.getElementById("chart").innerHTML="";
+                    if(document.getElementById("table"))
+                        if(document.getElementById("table").innerHTML!="")
+                            document.getElementById("table").innerHTML="";
 
-                  if(document.getElementById("input"))
-                  if(document.getElementById("input").innerHTML!="")
-                    document.getElementById("input").value=""; 
-                    
+                    if(document.getElementById("input"))
+                        if(document.getElementById("input").innerHTML!="")
+                            document.getElementById("input").value=""; 
+
                     if(document.getElementById("stocktable"))
-                    if(document.getElementById("stocktable").innerHTML!="")
-                    document.getElementById("stocktable").innerHTML="";
-                    
+                        if(document.getElementById("stocktable").innerHTML!="")
+                            document.getElementById("stocktable").innerHTML="";
+
                     if(document.getElementById("error_table"))
-                   if(document.getElementById("error_table").innerHTML!="")
-                      document.getElementById("error_table").innerHTML="";
+                        if(document.getElementById("error_table").innerHTML!="")
+                            document.getElementById("error_table").innerHTML="";
                 }
+                
                 function changeImage()
                 {
                     if (document.getElementById("toggler").src == "http://cs-server.usc.edu:45678/hw/hw6/images/Gray_Arrow_Down.png") 
@@ -80,6 +78,7 @@
 
                     }
                 }
+                
                 function feed_generator(jsonObj)
                 {
 
@@ -94,24 +93,19 @@
                         item=items[i];   
                         if(item["link"].indexOf(substring) !== -1)
                         {
-                            console.log(item["title"]+item["link"]+"&nbsp;&nbsp;&nbsp;&nbsp;Publicated Time: "+item["pubDate"]+" details"); 
                             str+="<tr><td><a href="+item["link"]+' style="text-decoration:none;" target="_blank">'+item["title"]+"</a>&nbsp;"+"&nbsp;&nbsp;Publicated Time : "+item["pubDate"].substr(0,25)+"</td></tr>";
                             console.log(item["link"]);
-                            //   console.log(item["pubDate"]);
                             counter++;
                         }
                     }
-
                     str+="</table>";
                     document.getElementById("table").innerHTML=str;
                 }   
                 function createChart1(symbol,company)
                 {
-                    console.log(symbol,company);
                     var response;
                     var jsonObj=null;
                     var url="https://www.alphavantage.co/query?function="+symbol+"&symbol="+company+"&outputsize=full&interval=daily&time_period=10&series_type=close&apikey=S2HX8THWDAM34YUP" ;
-                    console.log(url);
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
@@ -121,16 +115,17 @@
                         }
                     };
                     xhttp.open("GET", url, true);
-
-                    try{  xhttp.send();}
+                    try{  
+                        xhttp.send();
+                    }
                     catch(e)
                     {
-                        console.log(e);
                         alert("File Not FOUND");
-                        return;}
+                        return;
+                    }
+
                     function parser1(json,symbol,company)
                     {
-                        console.log(symbol);
                         objects = json[ "Technical Analysis: "+symbol];
                         indicator= json["Meta Data"]["2: Indicator"];
                         dates = Object.keys(objects);
@@ -148,9 +143,6 @@
                             console.log(objects[dates[i]]);
                         }
 
-
-
-                        console.log("Outer_array is"+outer_array);
                         Highcharts.chart('chart', {
                             chart: {
                                 zoomType: 'x',
@@ -211,19 +203,15 @@
                         });
                     }
 
-
-
                 }
 
                 function createChart2(symbol,company)
                 {
-                    console.log(symbol,company);
                     var response;
                     var jsonObj=null;
                     var url="https://www.alphavantage.co/query?function="+symbol+"&symbol="+company+"&outputsize=full&interval=daily&time_period=10&series_type=close&apikey=S2HX8THWDAM34YUP" ;
                     if(symbol.toUpperCase=="BBANDS")
                         url+="&slowkmatype=1& slowdmatype=1";
-                    console.log(url);
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
@@ -237,12 +225,10 @@
                     try{  xhttp.send();}
                     catch(e)
                     {
-                        console.log(e);
                         alert("File Not FOUND");
                         return;}
                     function parser2(json,symbol,company)
                     {
-                        console.log(symbol);
                         objects = json[ "Technical Analysis: "+symbol];
                         indicator= json["Meta Data"]["2: Indicator"];
                         dates = Object.keys(objects);
@@ -256,22 +242,16 @@
                         {
                             var  InnerArrayOfKey1=[];
                             var InnerArrayOfKey2=[];
-
                             innerObjects =objects[dates[i]];
                             innerKeys = Object.keys(innerObjects);
-                            console.log("printing inner objects and  innerkeys"+innerObjects[innerKeys]);
                             key1=innerKeys[0];
                             key2=innerKeys[1];
-
                             InnerArrayOfKey1.push(parseFloat(innerObjects[innerKeys[0]]));
                             InnerArrayOfKey2.push(parseFloat(innerObjects[innerKeys[1]]));
                             outer_array1.push(InnerArrayOfKey1);
                             outer_array2.push(InnerArrayOfKey2);
                             date.push(Date.parse(dates[i]));
-                            console.log(objects[dates[i]]);
                         }
-
-
 
                         Highcharts.chart('chart', {
                             chart: {
@@ -301,7 +281,6 @@
                                     text: symbol
                                 },
 
-
                             }],
                             tooltip:{xDateFormat:'%m/%d',},
 
@@ -321,7 +300,6 @@
                                     },
                                     lineWidth: 1,
 
-
                                 }
                             },
 
@@ -334,7 +312,7 @@
                                 name:company+" "+key2,
                                 data: outer_array2
                             }
-                                    ]
+                             ]
                         });
                     }
 
@@ -342,14 +320,12 @@
 
                 }
 
-                function createChart3
-                (symbol,company)
+                function createChart3(symbol,company)
                 {
                     console.log(symbol,company);
                     var response;
                     var jsonObj=null;
                     var url="https://www.alphavantage.co/query?function="+symbol+"&symbol="+company+"&outputsize=full&interval=daily&time_period=10&nbdevup=3&nbdevdn=3&time_period=5&series_type=close&apikey=S2HX8THWDAM34YUP" ;
-                    console.log(url);
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
@@ -363,12 +339,12 @@
                     try{  xhttp.send();}
                     catch(e)
                     {
-                        console.log(e);
                         alert("File Not FOUND");
-                        return;}
+                        return;
+                    }
+                    
                     function parser3(json,symbol,company)
                     {
-                        console.log(symbol);
                         objects = json[ "Technical Analysis: "+symbol];
                         indicator= json["Meta Data"]["2: Indicator"];
                         dates = Object.keys(objects);
@@ -400,7 +376,6 @@
                             outer_array2.push(InnerArrayOfKey2);
                             outer_array3.push(InnerArrayOfKey3);
                             date.push(Date.parse(dates[i]));
-                            console.log(objects[dates[i]]);
                         }
 
 
@@ -505,15 +480,9 @@
                             max_volume=parseFloat(time_series[dates[i]]["5. volume"]);
                         outer_array.push(inner_array);
                         outer_array_price.push(inner_array_price);
-                        //console.log("Outer array is :");
-                        // console.log(outer_array);
+
 
                     }
-                    console.log("outer_array_price");
-                    console.log(outer_array_price);
-
-                    //   console.log(outer_array);
-
                     Highcharts.chart('chart', {
                         chart: {
                             zoomType: 'x',
@@ -705,52 +674,52 @@
             <tr><td class = "bgTd"><b>Open</b></td><td class="bgTdr"><?php echo $open; ?></td></tr>
             <tr><td class = "bgTd"><b>Previous Close</b></td><td class="bgTdr"><?php echo $prev_close; ?></td></tr>
             <tr><td class = "bgTd"><b>Change</b></td><td class="bgTdr"><?php $change=($close-$prev_close); echo $change;
-                    $image="";
-                    if($change>0)
-                    {
-                        global $image;
-                        $image="http://cs-server.usc.edu:45678/hw/hw6/images/Green_Arrow_Up.png";
+            $image="";
+            if($change>0){
+                global $image;
+                $image="http://cs-server.usc.edu:45678/hw/hw6/images/Green_Arrow_Up.png";
                     }
-                    else
-                    { global $image;
-                     $image="http://cs-server.usc.edu:45678/hw/hw6/images/Red_Arrow_Down.png ";
-                    }
-
+            else{ 
+                global $image;
+                $image="http://cs-server.usc.edu:45678/hw/hw6/images/Red_Arrow_Down.png ";
+             }
                 ?><img src="<?php echo $image ?>" style="height: 15px; width: 18px;"></td></tr>
             <tr>
                 <td class = "bgTd"><b>Change Percent</b></td><td class="bgTdr"><?php echo round((((float)$close -(float)$prev_close)/(float)$prev_close)*100,2); ?>%<img src="<?php echo $image ?>" style="height: 15px; width: 18px;"> </td></tr>
-            <tr><td class = "bgTd"><b>Day's Range</b></td><td class="bgTdr"><?php echo $low."-".$high; ?></td></tr>
-            <tr><td class = "bgTd"><b>Volume</b></td><td class="bgTdr"><?php echo number_format($volume); ?></td></tr>
-            <tr><td class = "bgTd"><b>Timestamp</b></td><td class="bgTdr"><?php echo $time_stamp; ?></td></tr>
-            <tr><td class = "bgTd"><b>Indicators</b></td><td style="text-align:center;"> 
-                <a style="color:blue;cursor:pointer;" onclick = 'create_chart_stock(<?php echo $response ?>)'>Price</a>
-                &nbsp;
-                <a style="color:blue;cursor:pointer" onclick="createChart1('SMA','<?php echo $company;  ?>')">SMA</a>
-                &nbsp;  
-                <a style="color:blue; cursor:pointer" onclick="createChart1('EMA','<?php echo $company;  ?>')">EMA</a>
-                &nbsp;
-                <a style="color:blue; cursor:pointer" onclick="createChart2('STOCH','<?php echo $company;  ?>')">STOCH</a> 
-                &nbsp;
-                <a style="color:blue; cursor:pointer" onclick="createChart1('RSI','<?php echo $company;  ?>')">RSI</a>
-                &nbsp;
-                <a style="color:blue; cursor:pointer" onclick="createChart1('ADX','<?php echo $company;  ?>')">ADX</a>
-                &nbsp;
-                <a style="color:blue; cursor:pointer"  onclick="createChart1('CCI','<?php echo $company;  ?>')">CCI</a>
-                &nbsp;
-                <a style="color:blue; cursor:pointer"  onclick="createChart3('BBANDS','<?php echo $company;  ?>')">BBANDS</a>
-                &nbsp;
-                <a style="color:blue; cursor:pointer"  onclick="createChart3('MACD','<?php echo $company;  ?>')">MACD</a></td></tr>   
-
+            <tr>
+                <td class = "bgTd"><b>Day's Range</b></td><td class="bgTdr"><?php echo $low."-".$high; ?></td></tr>
+            <tr>
+                <td class = "bgTd"><b>Volume</b></td><td class="bgTdr"><?php echo number_format($volume); ?></td></tr>
+            <tr>
+                <td class = "bgTd"><b>Timestamp</b></td><td class="bgTdr"><?php echo $time_stamp; ?></td></tr>
+            <tr>
+                <td class = "bgTd"><b>Indicators</b></td><td style="text-align:center;"> 
+                    <a style="color:blue;cursor:pointer;" onclick = 'create_chart_stock(<?php echo $response ?>)'>Price</a>
+                    &nbsp;
+                    <a style="color:blue;cursor:pointer" onclick="createChart1('SMA','<?php echo $company;  ?>')">SMA</a>
+                    &nbsp;  
+                    <a style="color:blue; cursor:pointer" onclick="createChart1('EMA','<?php echo $company;  ?>')">EMA</a>
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer" onclick="createChart2('STOCH','<?php echo $company;  ?>')">STOCH</a> 
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer" onclick="createChart1('RSI','<?php echo $company;  ?>')">RSI</a>
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer" onclick="createChart1('ADX','<?php echo $company;  ?>')">ADX</a>
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer"  onclick="createChart1('CCI','<?php echo $company;  ?>')">CCI</a>
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer"  onclick="createChart3('BBANDS','<?php echo $company;  ?>')">BBANDS</a>
+                    &nbsp;
+                    <a style="color:blue; cursor:pointer"  onclick="createChart3('MACD','<?php echo $company;  ?>')">MACD</a>
+                </td>
+            </tr>   
         </table>
         <br>
         <div id="chart" style="margin:0 auto;width:80%"></div>
         <div id="clickheretext" style="text-align: center;color:#ddd">Click here to show stock news</div>
         <div id="wrapperImage" style="text-align:center;">
-
             <img   style="height: 35px; width: 58px;"id="toggler" src="http://cs-server.usc.edu:45678/hw/hw6/images/Gray_Arrow_Down.png " onclick="changeImage()">
         </div>
-
-
 
         <?php  echo "<script>create_chart_stock($response)</script>"; ?>
         <div id ="table" style="display:none;">
@@ -761,15 +730,13 @@
                 "verify_peer_name"=>false,
                 ),
                 );
-                    $xmlreturned=  @file_get_contents( $link_to_news, false, stream_context_create($arrContextOptions));
-
-
-                    if(!$xmlreturned)
-                    {  ?> <b>NO RECORDS FOUND</b><?php }
-                    else
-                    {$xml=simplexml_load_string($xmlreturned) or die("Error: Cannot create object");
-                     $feed_json=json_encode($xml);} 
-
+                $xmlreturned=  @file_get_contents( $link_to_news, false, stream_context_create($arrContextOptions));
+                if(!$xmlreturned){  
+                 ?> <b>NO RECORDS FOUND</b><?php 
+                }
+                else{
+                    $xml=simplexml_load_string($xmlreturned) or die("Error: Cannot create object");
+                    $feed_json=json_encode($xml);} 
                     echo "<script>feed_generator($feed_json)</script>";
                 }
                 else
