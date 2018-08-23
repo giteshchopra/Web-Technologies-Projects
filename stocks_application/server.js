@@ -224,9 +224,9 @@ app.get('/news/:symbol',function(req,res){
         var json="";
         var url="https://seekingalpha.com/api/sa/combined/"+req.params.symbol+".xml";
         request.get(url,function(err,response,body){
-            if(err){
-                response.send();
-            } 
+        if(err){
+            response.send();
+        } 
         if(response.statusCode === 200){  
             res.header("Access-Control-Allow-Origin","*");
             res.header("Access-Control-Allow-Headers","X-Requested-With");
