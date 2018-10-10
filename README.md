@@ -46,10 +46,30 @@ Table Fields | Description
 ------------ | -------------
 Stock Ticker Symbol  | Symbol of the company
 Last Price | Displays the current stock price of the data
-Change (Change Percent) | Displays the change and the change percent of the current stock.E.g. 1.52 (1.50%)
-Volume | The Volume of last day session
-Trash Can | delete the corresponding row from the table as well as from local storage.
+Change (Change Percent) | The change and the change percent of the current stock. 
+TimeStamp | The time corresponding to the last price. During trading hours, it should be the current date and time.
+Open | The Open Price of last day session.
+
+![GitHub Logo](/images/statistics table.png)
 
 
+An image of the current daily stock/indicator chart of the stock of the company retrieved via Alpha Vantage API 
+
+![GitHub Logo](/images/Price table view.png)
 
 
+Historical charts with zoom levels: 1 week, 1 month, 3 months, 6 months, 1 year, YTD and All
+![GitHub Logo](/images/highstocks.png)
+
+Used Seeking Alpha News Feed API to fetch news of that company.
+![GitHub Logo](/images/news.png)
+
+If for any reason (non-exisRng stock Rcker symbols, API failure, etc.) an error occurs, an appropriate error message is displayed
+![GitHub Logo](/images/errors.png)
+
+Whenever data is being fetched, a dynamic progress bar is  displayed.
+![GitHub Logo](/images/Loading Bars.png)
+
+
+This is a consolidated screenshot : 
+![GitHub Logo](/images/Consolidated screenshot.png)
