@@ -67,8 +67,4 @@ Used Seeking Alpha News Feed API to fetch news of that company.
 If for any reason (non-exisRng stock Rcker symbols, API failure, etc.) an error occurs, an appropriate error message is displayed
 ![GitHub Logo](/images/errors.png)
 
-Whenever data is being fetched, a dynamic progress bar is  displayed.
-![GitHub Logo](/images/Loading Bars.png)
-
-
 
