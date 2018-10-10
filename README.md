@@ -73,3 +73,5 @@ Whenever data is being fetched, a dynamic progress bar is  displayed.
 
 This is a consolidated screenshot : 
 ![GitHub Logo](/images/Consolidated screenshot.png)
+
+
