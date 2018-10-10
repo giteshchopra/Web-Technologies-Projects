@@ -5,6 +5,10 @@ This repository has my 2 major projects that I made during my CSCI 571 class.
 Both are stock market applications that show stock market prices and trends of company stocks.
 One is done using PHP and the other is done using JQuery and NodeJs.
 
+Link to my Project : http://www-scf.usc.edu/~giteshch/Project/
+
+Back-end : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/
+
 
 The stock symbol application first has a webpage that allows users to search for stock informaRon using the Alpha Vantage API and display the results on the same page below the form.
 
