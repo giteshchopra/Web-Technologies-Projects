@@ -34,5 +34,22 @@ Trash Can | delete the corresponding row from the table as well as from local st
 
 ![GitHub Logo](/images/localdatstore.png)
 
+Stock Details section has the following 3 tabs
+* Current Stock
+* Historical Charts
+* News Feeds
+
+
+![GitHub Logo](/images/price.png)
+
+Table Fields | Description
+------------ | -------------
+Stock Ticker Symbol  | Symbol of the company
+Last Price | Displays the current stock price of the data
+Change (Change Percent) | Displays the change and the change percent of the current stock.E.g. 1.52 (1.50%)
+Volume | The Volume of last day session
+Trash Can | delete the corresponding row from the table as well as from local storage.
+
+
 
 
