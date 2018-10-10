@@ -10,4 +10,3 @@ The stock symbol application first has a webpage that allows users to search for
 
 A user will first open a page as  where he/she can enter the stock Rcker symbol, and select from a list of matching stock symbols using “autocomplete.” A quote on a matched stock symbol can be performed.
 ![GitHub Logo](/images/search_bar.png)
-Format: ![Alt Text](url)
