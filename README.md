@@ -9,6 +9,13 @@ Link to my Project : http://www-scf.usc.edu/~giteshch/Project/
 
 Back-end : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/price/aapl
 
+Stock : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/price/aapl
+Refresh : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/refresh/aapl
+Indicators : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/indicators/aapl/indicator/ema
+Autocomplete : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/autocomplete/aapl
+News : https://stockproject-stockanalyzerbygitesh.uscom-central-1.oraclecloud.com/news/msft
+
+
 
 The stock symbol application first has a webpage that allows users to search for stock informaRon using the Alpha Vantage API and display the results on the same page below the form.
 
